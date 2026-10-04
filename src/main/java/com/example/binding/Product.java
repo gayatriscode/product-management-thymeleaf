@@ -1,10 +1,17 @@
 package com.example.binding;
 
 
+import jakarta.validation.constraints.NotNull;
+
 public class Product {
 
+    @NotNull(message="Id is required")
     private Integer pid;
+
+    @NotNull(message="Name is required")
     private String name;
+
+    @NotNull(message="Price is required")
     private Double price;
 
     public Integer getPid() {

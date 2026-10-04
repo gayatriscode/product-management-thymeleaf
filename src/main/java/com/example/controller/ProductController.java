@@ -1,8 +1,10 @@
 package com.example.controller;
 
 import com.example.binding.Product;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,10 +21,15 @@ public class ProductController {
 
     //TODO- Method to handle the form data
     @PostMapping("/product")
-    public String handleFormData(Product product, Model model) {
+    public String handleFormData(@Valid Product product, BindingResult br, Model model) {
         System.out.println(product);
-        model.addAttribute("product", product);
-        model.addAttribute("msg", "Product Saved");
+        //System.out.println(product);
+        if (br.hasErrors()) {
+            return "index";
+        }else {
+            model.addAttribute("product", product);
+            model.addAttribute("msg", "Product Saved");
+        }
         return "index";
     }
 }
